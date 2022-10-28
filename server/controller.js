@@ -225,6 +225,12 @@ module.exports = {
             ('Yemen'),
             ('Zambia'),
             ('Zimbabwe');
+
+            INSERT INTO cities (name, rating, country_id)
+            VALUES ('Berlin', 5, 65),
+            ('Las Vegas', 2, 187),
+            ('Tokyo', 4, 86);
+            
         `).then(() => {
             console.log('DB seeded!')
             res.sendStatus(200)
@@ -260,7 +266,8 @@ module.exports = {
             SELECT cities.country_id, cities.rating, cities.city_id, cities.name AS city, countries.country_id, countries.name AS country
             FROM countries
             JOIN cities
-            ON cities.country_id = countries.country_id;
+            ON cities.country_id = countries.country_id
+            ORDER BY cities.rating DESC;
         `)
         .then((dbRes) => {
             res.status(200).send(dbRes[0])
